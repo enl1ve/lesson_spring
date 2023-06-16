@@ -21,7 +21,8 @@
     </bean>
 
     <bean id="musicPlayer"
-        class="pract_1.MusicPlayer">
+        class="pract_1.MusicPlayer"
+        scope="prototype">
         <property name="musics">
             <list>
                 <ref bean="musicBean1"/>
