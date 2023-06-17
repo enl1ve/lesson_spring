@@ -17,22 +17,27 @@
           class="pract_1.MetalMusic">
     </bean>
     <bean id="musicBean3"
-          class="pract_1.ClassicalMusic">
+          scope="prototype"
+          class="pract_1.ClassicalMusic"
+          init-method="doMyInit"
+          destroy-method="destroyMyInit"
+
+          factory-method="getClassicalMusic">
     </bean>
 
-    <bean id="musicPlayer"
-        class="pract_1.MusicPlayer"
-        scope="prototype">
-        <property name="musics">
-            <list>
-                <ref bean="musicBean1"/>
-                <ref bean="musicBean2"/>
-                <ref bean="musicBean3"/>
-            </list>
-        </property>
+<!--    <bean id="musicPlayer"-->
+<!--        class="pract_1.MusicPlayer"-->
+<!--        scope="prototype">-->
+<!--        <property name="musics">-->
+<!--            <list>-->
+<!--                <ref bean="musicBean1"/>-->
+<!--                <ref bean="musicBean2"/>-->
+<!--                <ref bean="musicBean3"/>-->
+<!--            </list>-->
+<!--        </property>-->
 
-        <property name="name" value="${musicPlayer.name}"/>
-        <property name="volume" value="${musicPlayer.volume}"/>
-    </bean>
+<!--        <property name="name" value="${musicPlayer.name}"/>-->
+<!--        <property name="volume" value="${musicPlayer.volume}"/>-->
+<!--    </bean>-->
 
 </beans>
