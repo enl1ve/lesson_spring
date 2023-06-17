@@ -1,5 +1,8 @@
 package pract_1;
 
+import org.springframework.stereotype.Component;
+
+@Component("musicBean") //Вместо того что бы в XML файле прописовать вручную, аннотация проще и удобнее
 public class ClassicalMusic implements Music{
     private ClassicalMusic() {
     }
