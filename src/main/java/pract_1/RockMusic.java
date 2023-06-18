@@ -2,9 +2,11 @@ package pract_1;
 
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class RockMusic implements Music{
+    String[] songs = {"Bring me horizon", "Rockkk", "Bochi no rocki"};
     public String getSong() {
-        return "Bring me horizon";
+        int n = (int)Math.floor(Math.random() * songs.length);
+        return songs[n];
     }
 }

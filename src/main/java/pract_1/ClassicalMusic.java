@@ -2,8 +2,11 @@ package pract_1;
 
 import org.springframework.stereotype.Component;
 
-@Component("musicBean") //Вместо того что бы в XML файле прописовать вручную, аннотация проще и удобнее
+import java.util.List;
+
+@Component //Вместо того что бы в XML файле прописовать вручную, аннотация проще и удобнее
 public class ClassicalMusic implements Music{
+    String[] songs = {"zxc", "hih", "Bethovin"};
     private ClassicalMusic() {
     }
 
@@ -12,7 +15,8 @@ public class ClassicalMusic implements Music{
     }
 
     public String getSong() {
-        return "Sonata 12";
+        int n = (int)Math.floor(Math.random() * songs.length);
+        return songs[n];
     }
 
     public void doMyInit() {
