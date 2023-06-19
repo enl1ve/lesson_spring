@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-@Component //Вместо того что бы в XML файле прописовать вручную, аннотация проще и удобнее
-@Scope("prototype")
+//@Component //Вместо того что бы в XML файле прописовать вручную, аннотация проще и удобнее
+//@Scope("prototype")
 public class ClassicalMusic implements Music{
-    private ClassicalMusic() {
+    ClassicalMusic() {
     }
 
     public static ClassicalMusic getClassicalMusic() {
