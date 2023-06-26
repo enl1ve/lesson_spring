@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import spring_course.dao.PersonDao;
 import spring_course.model.Person;
+import spring_course.util.PersonValidator;
 
 import javax.validation.Valid;
 
@@ -15,10 +16,12 @@ import javax.validation.Valid;
 public class peopleController {
 
     private final PersonDao personDao;
+    private final PersonValidator personValidator;
 
     @Autowired
-    public peopleController(PersonDao personDao) {
+    public peopleController(PersonDao personDao, PersonValidator personValidator) {
         this.personDao = personDao;
+        this.personValidator = personValidator;
     }
 
     @GetMapping()
@@ -41,6 +44,9 @@ public class peopleController {
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult) {
+
+        personValidator.validate(person, bindingResult);
+
         if (bindingResult.hasErrors())
             return "people/new";
 
@@ -55,8 +61,12 @@ public class peopleController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
+    public String update(@ModelAttribute("person") @Valid Person person,
+                         BindingResult bindingResult,
                          @PathVariable("id") int id) {
+
+        personValidator.validate(person, bindingResult);
+
         if (bindingResult.hasErrors())
             return "people/edit";
 
