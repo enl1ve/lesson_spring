@@ -3,31 +3,26 @@ package org.example.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "movie")
-public class Movie {
+@Table(name = "school")
+public class School {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "movie_id")
+    @Column(name = "id")
     private int id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "year_of_production")
-    private int year_of_production;
-
-    @ManyToOne
-    @JoinColumn(name = "director_id", referencedColumnName = "director_id")
+    @OneToOne
+    @JoinColumn(name = "director_id", referencedColumnName = "id")
     private Director director;
 
-    public Movie() {
+    public School() {
 
     }
 
-    public Movie(String name, int year_of_production, Director director) {
+    public School(String name) {
         this.name = name;
-        this.year_of_production = year_of_production;
-        this.director = director;
     }
 
     public int getId() {
@@ -46,14 +41,6 @@ public class Movie {
         this.name = name;
     }
 
-    public int getYear_of_production() {
-        return year_of_production;
-    }
-
-    public void setYear_of_production(int year_of_production) {
-        this.year_of_production = year_of_production;
-    }
-
     public Director getDirector() {
         return director;
     }
@@ -64,10 +51,10 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" +
+        return "School{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", year_of_production=" + year_of_production +
+                ", director=" + director +
                 '}';
     }
 }
