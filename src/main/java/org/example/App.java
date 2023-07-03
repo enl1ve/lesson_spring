@@ -1,9 +1,15 @@
 package org.example;
 
-import org.example.model.Person;
+import org.example.model.Actor;
+import org.example.model.Movie;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Hello world!
@@ -13,24 +19,29 @@ public class App
 {
     public static void main( String[] args )
     {
-        Configuration configuration = new Configuration().addAnnotatedClass(Person.class);
+        Configuration configuration = new Configuration()
+                .addAnnotatedClass(Actor.class)
+                .addAnnotatedClass(Movie.class);
 
         SessionFactory sessionFactory = configuration.buildSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
-        try {
+
+        try (sessionFactory) {
+            Session session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
-            Person person1 = new Person("test1", 11);
-            Person person2 = new Person("test2", 12);
-            Person person3 = new Person("test3", 13);
+            Actor actor = session.get(Actor.class, 2);
+            System.out.println(actor.getMovies());
 
-            session.save(person1);
-            session.save(person2);
-            session.save(person3);
+            Movie movie = actor.getMovies().get(0);
+
+            actor.getMovies().remove(movie);
+            movie.getActors().remove(actor);
+
+
+
+            session.persist(movie);
 
             session.getTransaction().commit();
-        } finally {
-            sessionFactory.close();
         }
     }
 }
