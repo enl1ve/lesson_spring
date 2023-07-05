@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import spring_course.dao.PersonDao;
 import spring_course.model.Person;
+import spring_course.service.PeopleService;
 
 import javax.validation.Valid;
 
@@ -14,22 +14,22 @@ import javax.validation.Valid;
 @RequestMapping("/people")
 public class peopleController {
 
-    private final PersonDao personDao;
+    private final PeopleService peopleService;
 
     @Autowired
-    public peopleController(PersonDao personDao) {
-        this.personDao = personDao;
+    public peopleController(PeopleService peopleService) {
+        this.peopleService = peopleService;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("people", personDao.index());
+        model.addAttribute("people", peopleService.findAll());
         return "people/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", personDao.show(id));
+        model.addAttribute("person", peopleService.findOne(id));
         return "people/show";
     }
 
@@ -44,13 +44,13 @@ public class peopleController {
         if (bindingResult.hasErrors())
             return "people/new";
 
-        personDao.save(person);
+        peopleService.save(person);
         return "redirect:/people";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("person", personDao.show(id));
+        model.addAttribute("person", peopleService.findOne(id));
         return "people/edit";
     }
 
@@ -60,13 +60,13 @@ public class peopleController {
         if (bindingResult.hasErrors())
             return "people/edit";
 
-        personDao.update(id, person);
+        peopleService.update(id, person);
         return "redirect:/people";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        personDao.delete(id);
+        peopleService.delete(id);
         return "redirect:/people";
     }
 }
