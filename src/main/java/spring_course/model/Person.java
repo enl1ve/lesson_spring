@@ -1,7 +1,11 @@
 package spring_course.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -20,6 +24,22 @@ public class Person {
     @Max(value = 100, message = "mnoga")
     @Column(name = "age")
     private int age;
+
+    @OneToMany(mappedBy = "person")
+    private List<Item> items;
+
+    @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date dateOfBirth;
+
+    @Column(name = "created_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    @Column(name = "mood")
+    @Enumerated(EnumType.ORDINAL)
+    private Moods moods;
 
 
     public Person(String name, int age) {
@@ -53,5 +73,46 @@ public class Person {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Moods getMoods() {
+        return moods;
+    }
+
+    public void setMoods(Moods moods) {
+        this.moods = moods;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

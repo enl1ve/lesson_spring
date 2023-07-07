@@ -3,9 +3,11 @@ package spring_course.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import spring_course.model.Moods;
 import spring_course.model.Person;
 import spring_course.repositories.PeopleRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +34,8 @@ public class PeopleService {
 
     @Transactional
     public void save(Person person) {
+        person.setCreatedAt(new Date());
+        person.setMoods(Moods.CALM);
         peopleRepository.save(person);
     }
 
@@ -45,4 +49,10 @@ public class PeopleService {
     public void delete(int id) {
         peopleRepository.deleteById(id);
     }
+
+    public void test() {
+        System.out.println("testing here with debug");
+    }
+
+
 }

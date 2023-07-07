@@ -17,6 +17,11 @@
     <p style="color: red" th:if="${#fields.hasErrors('person.age')}" th:errors="*{person.age}"> Age Error </p>
     <br/>
 
+    <label for="date_of_birth">Enter date of birth (dd/mm/yyyy)</label>
+    <input type="text" th:field="*{person.dateOfBirth}" id="date_of_birth"/>
+    <p style="color: red" th:if="${#fields.hasErrors('person.dateOfBirth')}" th:errors="*{person.dateOfBirth}"> Date Error </p>
+    <br/>
+
     <br/>
   <input type="submit" value="Create!">
 
